@@ -8,12 +8,10 @@ import java.awt.image.BufferedImage;
 public class window extends JFrame {
 
     public String Title = "Home";
-    private Integer Height = 500;
-    private Integer Width = 500;
     private Boolean isCreated = false;
-    private BufferedImage image;
-    private Canvas canvas;
-    private BufferStrategy bs;
+    public gamePanel gp = new gamePanel();
+    public Integer Height = gp.screenHeight;
+    public Integer Width = gp.screenWidth;
 
     public window(){
         System.out.println("Window Config Class BOOTED.");
@@ -22,46 +20,30 @@ public class window extends JFrame {
     public void create(){
         isCreated = true;
 
-        image = new BufferedImage(Width, Height, BufferedImage.TYPE_INT_RGB);
+        Dimension size = new Dimension(Width,Height);
 
-        canvas = new Canvas();
-        Dimension size = new Dimension(Width, Height);
-        canvas.setPreferredSize(size);
-        canvas.setMaximumSize(size);
-        canvas.setMinimumSize(size);
-
-        pack();
-        setSize(size);
-        setTitle(Title);
-        setLayout(new BorderLayout());
-        add(canvas, BorderLayout.CENTER);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        canvas.createBufferStrategy(2);
-        bs = canvas.getBufferStrategy();
+        this.pack();
+        this.setSize(size);
+        this.setTitle(Title);
+        this.setLayout(new BorderLayout());
+        this.add(gp);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public void show(Boolean estado){
-        setVisible(estado);
-        setFocusable(true);
+    public void shows(Boolean estado){
+        this.setVisible(estado);
+        this.setFocusable(true);
     }
 
-    public void setDimension(int Largura, int Altura){
+    public void setDimension(int Altura, int Largura){
         Height = Altura;
         Width = Largura;
     }
 
     public void updateTitle(String t){
-        setTitle(t);
+        this.setTitle(t);
     }
 
-    public void update(){
-
-    }
-
-    public Graphics getGraphics() {
-        return bs.getDrawGraphics();
-    }
 }

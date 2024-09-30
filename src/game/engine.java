@@ -4,18 +4,20 @@ import src.window.window;
 
 import java.awt.*;
 
-public class engine {
+public class engine extends window{
 
     private Thread thread;
     private boolean isRunning = false;
-    private double UPDATE_CAP = 1000.0/60.0;
-    private window window = new window();
-    public int FPS;
+    private double UPDATE_CAP = 1000.0/120.0;
     private Integer frames = 0;
     private double FrameTime = 0;
+    public int FPS;
+    private gamelogic gmlogic;
+
+
 
     public engine(){
-
+        System.out.println("Engine Class BOOTED. ");
     }
 
     public void start(){
@@ -24,14 +26,19 @@ public class engine {
     }
 
     public void stop(){
-
+        isRunning = false;
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void startWindow(){
-        window.updateTitle("game");
-        window.setDimension(500, 500);
-        window.create();
-        window.show();
+        updateTitle("game");
+        create();
+        this.shows(true);
+        gmlogic = new gamelogic(gp);
     }
 
     public void run(){
@@ -55,8 +62,8 @@ public class engine {
                 TempoSobra -= UPDATE_CAP;
                 frames++;
 
-                // Renderização/Atualização na tela
-                window.update();
+                // Atualizações
+                gmlogic.update();
                 this.FpsCounter();
             }
         }
@@ -65,7 +72,7 @@ public class engine {
 
     public void FpsCounter(){
         if(FrameTime >= 1000.0){
-            window.updateTitle("FPS: "+frames);
+            updateTitle("FPS: "+frames);
             FPS = frames;
             frames = 0;
             FrameTime -= 1000.0;
@@ -74,6 +81,6 @@ public class engine {
     }
 
     public void dispose(){
-
+        System.out.println("Program Terminated :)");
     }
 }
