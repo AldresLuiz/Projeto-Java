@@ -1,22 +1,18 @@
 package src.game;
 
-import src.window.window;
+public class gameEngine extends gameWindow {
 
-import java.awt.*;
-
-public class engine extends window{
-
-    private Thread thread;
-    private boolean isRunning = false;
-    private double UPDATE_CAP = 1000.0/120.0;
-    private Integer frames = 0;
-    private double FrameTime = 0;
+    public double FpsTarget = 30;
+    private double FpsTime = 1000.0/FpsTarget;
+    private double FpsTimeLimiter = 0;
+    private int FpsCounter = 0;
     public int FPS;
-    private gamelogic gmlogic;
 
+    private gameLogic gamelogic;
+    private boolean isRunning = false;
+    private Thread thread;
 
-
-    public engine(){
+    public gameEngine(){
         System.out.println("Engine Class BOOTED. ");
     }
 
@@ -38,32 +34,39 @@ public class engine extends window{
         updateTitle("game");
         create();
         this.shows(true);
-        gmlogic = new gamelogic(gp);
     }
 
     public void run(){
         this.startWindow();
+        gamelogic = new gameLogic(gp);
         isRunning = true;
 
         double PrimeiroTempo = 0;
         double UltimoTempo = System.currentTimeMillis();
         double TempoDecorrido = 0;
         double TempoSobra = 0;
+        double TempoTick = 0;
 
         while(isRunning){
             PrimeiroTempo = System.currentTimeMillis();
             TempoDecorrido = PrimeiroTempo - UltimoTempo;
-            FrameTime += TempoDecorrido;
             UltimoTempo = PrimeiroTempo;
+            FpsTimeLimiter += TempoDecorrido;
             TempoSobra += TempoDecorrido;
+            TempoTick += TempoDecorrido;
 
+            if(TempoTick>=1000.0/128.0){
+                gamelogic.tick();
+                TempoTick-=1000.0/128.0;
+            }
 
-            while(TempoSobra >= UPDATE_CAP){
-                TempoSobra -= UPDATE_CAP;
-                frames++;
+            if(TempoSobra >= FpsTime){
+                TempoSobra -= FpsTime;
+                FpsCounter++;
 
                 // Atualizações
-                gmlogic.update();
+                repaint();
+                gamelogic.update();
                 this.FpsCounter();
             }
         }
@@ -71,11 +74,11 @@ public class engine extends window{
     }
 
     public void FpsCounter(){
-        if(FrameTime >= 1000.0){
-            updateTitle("FPS: "+frames);
-            FPS = frames;
-            frames = 0;
-            FrameTime -= 1000.0;
+        if(FpsTimeLimiter >= 1000.0){
+            updateTitle("FPS: "+FpsCounter+" RES: "+gp.screenWidth+"x"+gp.screenHeight);
+            FPS = FpsCounter;
+            FpsTimeLimiter -= 1000.0;
+            FpsCounter = 0;
             // Fps Counter
         }
     }
