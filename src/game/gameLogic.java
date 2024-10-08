@@ -12,10 +12,11 @@ public class gameLogic {
     private Player p;
     private gameCanvas gp;
     private BufferStrategy bs;
-    private gameWorld gameW = new gameWorld();
+    private gameWorld gameW;
 
     public gameLogic(gameCanvas gpv){
         gp = gpv;
+        gameW = new gameWorld(gp.scale);
         bs = gp.bufferStrategy();
         loadentidades();
     }
@@ -29,8 +30,8 @@ public class gameLogic {
         Graphics g = bs.getDrawGraphics();
         g.setColor(Color.BLACK);
         g.fillRect(0,0,(int)gp.screenWidth,(int)gp.screenHeight);
+        gameW.update(bs,gp.scale,p.Position);
         p.update(bs);
-        //gameW.update(bs,gp.scale);  Em Manutenção
         bs.show();
     }
 

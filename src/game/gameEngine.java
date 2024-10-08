@@ -2,7 +2,7 @@ package src.game;
 
 public class gameEngine extends gameWindow {
 
-    public double FpsTarget = 30;
+    public double FpsTarget = 60;
     private double FpsTime = 1000.0/FpsTarget;
     private double FpsTimeLimiter = 0;
     private int FpsCounter = 0;

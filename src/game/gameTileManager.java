@@ -10,9 +10,9 @@ import java.io.IOException;
 public class gameTileManager {
 
     private BufferedImage TileImage;
-    private BufferedImage[] TileLoader = new BufferedImage[1024];
+    private Image[] TileLoader = new Image[1024];
 
-    public gameTileManager() {
+    public gameTileManager(double scale) {
         int count = 0;
         try {
             TileImage = ImageIO.read(new File("src/tilemap.png"));
@@ -21,14 +21,14 @@ public class gameTileManager {
         }
         for(byte y = 0 ; y < 32 ; y++ ){
             for(byte x = 0 ; x < 32 ; x++ ){
-                TileLoader[count] = TileImage.getSubimage(x*16,y*16,16,16);
+                TileLoader[count] = (Image) TileImage.getSubimage(x*16,y*16,16,16).getScaledInstance((int)(16*scale),(int)(16*scale),0);
                 count++;
             }
         }
     }
 
     public Image getTile(int id,double scale){
-        return TileLoader[id].getScaledInstance((int)(scale*16),(int)(scale*16),0);
+        return TileLoader[id];
     }
 
 
