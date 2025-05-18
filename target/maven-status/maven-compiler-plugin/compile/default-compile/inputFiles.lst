@@ -1,0 +1,16 @@
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/annotations/UpdateGameTicks.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/entitys/Player.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/main.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/annotations/RenderUIGraphics.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/annotations/WorldSetter.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameLogic/World/gameTileManager.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/annotations/RenderPlayerGraphics.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameLogic/gameLogic.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameCore/Window.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameLogic/World/World.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/annotations/PlayerSetter.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameCore/gameCanvas.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameLogic/RenderGraphics.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameTypes/Entity.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/annotations/RenderWorldGraphics.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameCore/Engine.java
