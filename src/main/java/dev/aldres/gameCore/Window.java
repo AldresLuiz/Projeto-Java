@@ -10,7 +10,6 @@ public class Window extends JFrame {
     public Integer Width = (int)gp.screenWidth;
 
     public Window(){
-        System.out.println("Window Config Class BOOTED.");
     }
 
     public void create(){

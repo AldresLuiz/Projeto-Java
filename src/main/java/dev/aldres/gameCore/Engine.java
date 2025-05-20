@@ -13,7 +13,6 @@ public class Engine extends Window {
     private Thread thread;
 
     public Engine(){
-        System.out.println("Engine Class BOOTED. ");
     }
 
     public void start(){

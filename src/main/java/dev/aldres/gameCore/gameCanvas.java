@@ -6,7 +6,7 @@ import java.awt.image.BufferStrategy;
 public class gameCanvas extends Canvas{
 
     public final int originalTileSize = 16;
-    public final double scale = 2.5;
+    public final double scale = 2;
     public final int maxCol = 32;
     public final int maxLine = 18;
 

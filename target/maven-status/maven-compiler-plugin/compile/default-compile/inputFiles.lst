@@ -10,7 +10,9 @@
 /home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameLogic/World/World.java
 /home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/annotations/PlayerSetter.java
 /home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameCore/gameCanvas.java
-/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameLogic/RenderGraphics.java
 /home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameTypes/Entity.java
 /home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/annotations/RenderWorldGraphics.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameTypes/Block.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/annotations/RenderProperties.java
+/home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameLogic/RenderAndUpdate.java
 /home/aldres/Projetos/Projeto-Java/src/main/java/dev/aldres/gameCore/Engine.java

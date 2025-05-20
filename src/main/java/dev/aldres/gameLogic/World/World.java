@@ -4,58 +4,47 @@ import javax.imageio.ImageIO;
 
 import dev.aldres.annotations.RenderWorldGraphics;
 import dev.aldres.annotations.WorldSetter;
+import dev.aldres.entitys.Player;
 import dev.aldres.gameCore.gameCanvas;
+import dev.aldres.gameTypes.Block;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.HashMap;
+import java.math.BigDecimal;
 
 @WorldSetter
 public class World {
-    private HashMap<Integer, Integer> TileIndetifier = new HashMap<>();
-    private gameCanvas gc;
-    private Integer[][] worldMapper;
-    private gameTileManager gameTM;
+    public Block[][] worldMapper;
+    Player player;
+    Double offsetX, offsetY;
+    private LoadBlocks loadblocks;
     private Point playerPoint;
+    private gameCanvas gc;
     private double scale;
 
     public World(gameCanvas gc, Point pos){
-        this.gameTM = new gameTileManager(gc.scale);
         playerPoint = pos;
         this.scale = gc.scale;
         this.gc = gc;
-        this.colorSet();
+        loadblocks = new LoadBlocks("src/blocks.xml",gc);
         this.mapRender();
     }
 
-    public void colorSet(){
-        TileIndetifier.put(0xffffff,0);
-        TileIndetifier.put(0x7f7f7f,1);
-        TileIndetifier.put(0x000000,2);
-        TileIndetifier.put(0xc3c3c3,3);
-        TileIndetifier.put(0xff7f27,4);
-        TileIndetifier.put(0x00ff00,5);
-        TileIndetifier.put(0x22b14c,6);
-        TileIndetifier.put(0xb5e61d,7);
-    }
-
     public void mapRender(){
-        HashMap<Integer,Integer> colornotfound = new HashMap<>();
         try {
             BufferedImage image = ImageIO.read(new File("src/world.png"));
 
-            worldMapper = new Integer[image.getWidth()][image.getHeight()];
+            worldMapper = new Block[image.getWidth()][image.getHeight()];
 
             for (int y = 0; y < worldMapper[0].length; y++) {
                 for (int x = 0; x < worldMapper.length; x++) {
                     int color = image.getRGB(x, y) & 0x00FFFFFF;
-                    worldMapper[x][y] = 0;
-                    colornotfound.put(color,-color);
-                    if (TileIndetifier.containsKey(color)) {
-                        worldMapper[x][y] = TileIndetifier.get(color);
-                        colornotfound.put(color,color);
+                    if (loadblocks.tileIdentifier.containsKey(color)) {
+                        worldMapper[x][y] = loadblocks.getBlockById(loadblocks.tileIdentifier.get(color));
+                        continue;
                     }
+                    worldMapper[x][y] = loadblocks.getBlockById(0);
                 }
             }
         } catch (Exception e) {
@@ -67,6 +56,9 @@ public class World {
         int posY = playerPoint.y;
         int posX = playerPoint.x;
 
+        offsetX = player.PosX.doubleValue() - player.PosX.intValue();
+        offsetY = player.PosY.doubleValue() - player.PosY.intValue();
+
         for(int y = 0; y < gc.maxLine+2; y++) {
             for(int x = 0; x < gc.maxCol+2; x++) {
 
@@ -74,9 +66,9 @@ public class World {
                 int worldY = posY - (gc.maxLine/2) + y;
 
                 if(worldX >= 0 && worldY >= 0 && worldX < worldMapper.length && worldY < worldMapper[0].length) {
-                    g.drawImage(gameTM.getTile(worldMapper[worldX][worldY]),
-                            (int) (x * 16 * scale),
-                            (int) (y * 16 * scale),
+                    g.drawImage(worldMapper[worldX][worldY].image,
+                            (int) ((x-offsetX) * gc.originalTileSize * scale),
+                            (int) ((y-offsetY) * gc.originalTileSize * scale),
                             null);
                 }
             }

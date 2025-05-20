@@ -17,6 +17,7 @@ import dev.aldres.annotations.RenderUIGraphics;
 import dev.aldres.annotations.RenderWorldGraphics;
 import dev.aldres.annotations.UpdateGameTicks;
 import dev.aldres.annotations.WorldSetter;
+import dev.aldres.entitys.Player;
 import dev.aldres.gameCore.gameCanvas;
 
 public class RenderAndUpdate {
@@ -102,6 +103,31 @@ public class RenderAndUpdate {
                 e.printStackTrace();
             }
         }
+        
+        Object player = null;
+        Object world = null;
+
+        for (RenderCall rc : RenderGraphics) {
+            if(rc.obj.getClass().isAnnotationPresent(PlayerSetter.class)){
+                player = rc.obj;
+            }
+            if(rc.obj.getClass().isAnnotationPresent(WorldSetter.class)){
+                world = rc.obj;
+            }
+        }
+
+        try {
+            Field worldField = player.getClass().getDeclaredField("world");
+            worldField.setAccessible(true);
+            worldField.set(player, world);
+
+            Field playerField = world.getClass().getDeclaredField("player");
+            playerField.setAccessible(true);
+            playerField.set(world, player);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
     public void Render(){
